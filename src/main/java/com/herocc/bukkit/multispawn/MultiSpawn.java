@@ -70,18 +70,13 @@ public class MultiSpawn extends JavaPlugin  {
     this.saveConfig();
   }
 
-  public Set<String> getSpawns(){
+  public ArrayList<String> getSpawns(){
     Set<String> spawns = getConfig().getConfigurationSection("spawns").getKeys(false);
-    if (spawns.size() == 0) { return null; }
-    return spawns;
-  }
-
-  public ArrayList<String> getSpawnsAsArray(){
-    ArrayList<String> spawns = new ArrayList<>();
-    for (String name : getSpawns()) {
+    ArrayList<String> spawnsNew = new ArrayList<>();
+    for (String name : spawns) {
       spawns.add(name);
     }
-    return spawns;
+    return spawnsNew;
   }
 
   public String getRandomSpawn(Player p){
@@ -106,7 +101,7 @@ public class MultiSpawn extends JavaPlugin  {
   }
 
   public String getSpawn(int index){
-    return getSpawnsAsArray().get(index);
+    return getSpawns().get(index);
   }
 
   private void initMetrics() {
