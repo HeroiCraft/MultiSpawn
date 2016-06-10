@@ -16,12 +16,16 @@ public class SetSpawn implements CommandExecutor {
     if (sender instanceof Player){
       Player p = (Player) sender;
       String spawnName = "default";
-      if (label.equals("setspawn") && (p.hasPermission("multispawn.setspawn"))){
+      if (p.hasPermission("multispawn.setspawn")){
         if (args.length >= 1) { spawnName = args[0]; }
         plugin.setSpawn(p.getLocation(), spawnName);
         p.sendMessage(ChatColor.GREEN + "Set spawn " + ChatColor.BOLD  + spawnName + ChatColor.RESET + ChatColor.GREEN + " to your current location");
         return true;
+      } else {
+        sender.sendMessage(ChatColor.RED + "You don't have permission to do that!");
       }
+    } else {
+      sender.sendMessage(ChatColor.RED + "Sorry, CONSOLE can't set spawn locations!");
     }
     return false;
   }

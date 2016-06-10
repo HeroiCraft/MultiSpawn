@@ -22,6 +22,8 @@ public class RemoveSpawn implements CommandExecutor {
           sender.sendMessage(ChatColor.RED + "This command IS case sensitive, so please check your spawn name");
           return true;
         }
+      } else {
+        sender.sendMessage(ChatColor.RED + "Sorry, you don't have permissions to remove spawns!");
       }
     } else {
       sender.sendMessage(ChatColor.RED + "You don't have permission to do that!");
