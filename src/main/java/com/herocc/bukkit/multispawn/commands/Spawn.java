@@ -27,6 +27,7 @@ public class Spawn implements CommandExecutor {
       }
     } else {
       sender.sendMessage(ChatColor.RED + "Silly " + sender.getName() + ", you can't do that!");
+      return true;
     }
     return false;
   }

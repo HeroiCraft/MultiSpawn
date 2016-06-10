@@ -24,10 +24,11 @@ public class RemoveSpawn implements CommandExecutor {
         }
       } else {
         sender.sendMessage(ChatColor.RED + "Sorry, you don't have permissions to remove spawns!");
+        return true;
       }
     } else {
       sender.sendMessage(ChatColor.RED + "You don't have permission to do that!");
+      return true;
     }
-    return false;
   }
 }

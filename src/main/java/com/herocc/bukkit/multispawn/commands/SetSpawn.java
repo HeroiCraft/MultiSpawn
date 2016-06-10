@@ -23,11 +23,12 @@ public class SetSpawn implements CommandExecutor {
         return true;
       } else {
         sender.sendMessage(ChatColor.RED + "You don't have permission to do that!");
+        return true;
       }
     } else {
       sender.sendMessage(ChatColor.RED + "Sorry, CONSOLE can't set spawn locations!");
+      return true;
     }
-    return false;
   }
 }
 
