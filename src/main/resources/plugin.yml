@@ -1,0 +1,31 @@
+name: MultiSpawn
+version: '@Version@'
+main: com.herocc.bukkit.multispawn.MultiSpawn
+description: "@Description@"
+authors: ['@Author@']
+
+commands:
+  spawn:
+    description: "Teleports player to designated spawn"
+    usage: "/<command> [name]"
+  setspawn:
+    description: "Sets a spawn"
+    usage: "/<commmand> [name]"
+  removespawn:
+    description: "Removes a spawn"
+    usage: "/<commmand> <name>"
+    aliases: [rmspawn]
+  listspawns:
+    description: "Lists all spawns"
+    usage: "/<command>"
+    aliases: [spawns, lspawns, lspawn]
+
+permissions:
+  multispawn.spawn:
+    default: false
+  multispawn.noteleport:
+    default: op
+  multispawn.bycommand:
+    default: op
+  multispawn.removespawn:
+    default: op
