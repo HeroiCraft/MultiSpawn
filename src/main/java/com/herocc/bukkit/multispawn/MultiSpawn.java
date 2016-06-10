@@ -1,18 +1,20 @@
 package com.herocc.bukkit.multispawn;
 
 import com.herocc.bukkit.multispawn.commands.*;
-import com.herocc.bukkit.multispawn.events.PlayerDeath;
-import com.herocc.bukkit.multispawn.events.PlayerJoin;
+import com.herocc.bukkit.multispawn.events.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.mcstats.Metrics;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 import java.util.Set;
+import java.util.logging.Level;
 
 
 public class MultiSpawn extends JavaPlugin  {
@@ -35,6 +37,8 @@ public class MultiSpawn extends JavaPlugin  {
 
     this.getServer().getPluginManager().registerEvents(new PlayerJoin(), this);
     this.getServer().getPluginManager().registerEvents(new PlayerDeath(), this);
+
+    initMetrics();
   }
 
   @Override
@@ -103,6 +107,14 @@ public class MultiSpawn extends JavaPlugin  {
 
   public String getSpawn(int index){
     return getSpawnsAsArray().get(index);
+  }
+
+  private void initMetrics() {
+    try {
+      new Metrics(this).start();
+    } catch (IOException e) {
+      this.getLogger().log(Level.FINER, "Metrics init failed!");
+    }
   }
 
 }

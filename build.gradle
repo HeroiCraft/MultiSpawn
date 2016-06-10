@@ -20,12 +20,14 @@ buildscript {
 jar.dependsOn(generateRebel)
 
 repositories {
-    mavenCentral()
-    maven { url 'https://hub.spigotmc.org/nexus/content/groups/public' }
+  mavenCentral()
+  maven { url 'https://hub.spigotmc.org/nexus/content/groups/public' }
+  maven { url 'http://repo.mcstats.org/content/repositories/public' }
 }
 
 dependencies {
   compile group: 'org.bukkit', name: 'bukkit', version: '1.9.4-R0.1-SNAPSHOT'
+  compile group: 'org.mcstats.bukkit', name: 'metrics', version: 'R7'
 }
 
 idea {
