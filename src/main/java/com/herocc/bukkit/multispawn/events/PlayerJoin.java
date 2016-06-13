@@ -11,6 +11,8 @@ public class PlayerJoin implements Listener {
 
   @EventHandler
   @SuppressWarnings("unused")
+  // PlayerJoinEvent is a successful login, PlayerLoginEvent is when player pushes join
+  // https://bukkit.org/threads/difference-between-playerjoinevent-and-playerloginevent.76836/#post-1129849
   public void onPlayerJoin(PlayerJoinEvent ev) {
     final Player p = ev.getPlayer();
     if (!(p.hasPermission("multispawn.noteleport"))){

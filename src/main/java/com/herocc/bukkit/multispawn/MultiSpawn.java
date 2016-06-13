@@ -44,8 +44,8 @@ public class MultiSpawn extends JavaPlugin  {
   @Override
   public void onDisable(){
     this.saveConfig();
-    instance = null;
     random = null;
+    instance = null;
   }
 
   public Location getSpawnLocation(String name){

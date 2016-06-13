@@ -3,6 +3,7 @@ version: '@Version@'
 main: com.herocc.bukkit.multispawn.MultiSpawn
 description: "@Description@"
 authors: ['@Author@']
+dev-url: http://dev.bukkit.org/bukkit-plugins/multi-spawn/
 
 commands:
   spawn:
