@@ -85,6 +85,7 @@ public class MultiSpawn extends JavaPlugin  {
       if (p.hasPermission("multispawn.spawn." + name)){ allowedSpawns.add(name); }
     }
     Collections.shuffle(allowedSpawns, random);
+    if (allowedSpawns.size() == 0 ){ return null; }
     return allowedSpawns.get(0);
   }
 
@@ -96,7 +97,7 @@ public class MultiSpawn extends JavaPlugin  {
   public void sendPlayerToSpawn(Player p, String spawn){ p.teleport(getSpawnLocation(spawn)); }
 
   public void sendPlayerToSpawn(Player p){
-    if (getNumberOfSpawns() == 0) { return; }
+    if (getNumberOfSpawns() == 0 || getRandomSpawn(p) == null) { return; }
     sendPlayerToSpawn(p, getRandomSpawn(p));
   }
 
