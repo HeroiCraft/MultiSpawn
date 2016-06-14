@@ -1,2 +1,3 @@
 spawns: []
+useDefaultAsFallback: true # If the player has no permissions, use the spawn named 'default'
 configversion: 1

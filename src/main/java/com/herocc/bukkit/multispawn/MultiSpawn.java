@@ -5,6 +5,7 @@ import com.herocc.bukkit.multispawn.events.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.mcstats.Metrics;
@@ -15,7 +16,6 @@ import java.util.Collections;
 import java.util.Random;
 import java.util.Set;
 import java.util.logging.Level;
-
 
 public class MultiSpawn extends JavaPlugin  {
   private static MultiSpawn instance;
@@ -74,31 +74,37 @@ public class MultiSpawn extends JavaPlugin  {
     Set<String> spawns = getConfig().getConfigurationSection("spawns").getKeys(false);
     ArrayList<String> spawnsNew = new ArrayList<>();
     for (String name : spawns) {
-      spawns.add(name);
+      spawnsNew.add(name);
     }
     return spawnsNew;
   }
 
-  public String getRandomSpawn(Player p){
+  public ArrayList<String> getSpawns(CommandSender p){
     ArrayList<String> allowedSpawns = new ArrayList<>();
     for (String name : getSpawns()) {
       if (p.hasPermission("multispawn.spawn." + name)){ allowedSpawns.add(name); }
     }
     Collections.shuffle(allowedSpawns, random);
-    if (allowedSpawns.size() == 0 ){ return null; }
-    return allowedSpawns.get(0);
+    if (allowedSpawns.size() == 0 && getConfig().getBoolean("useDefaultAsFallback", true) && (getSpawnLocation("default") != null)) {
+      // In future updates, possibly use world spawn rather than default?
+      allowedSpawns.add("default");
+    }
+    return allowedSpawns;
   }
 
+  public String getRandomSpawn(Player p){ return getSpawns(p).get(0); }
+
   public int getNumberOfSpawns(){
-    try { getConfig().getConfigurationSection("spawns").getKeys(false); } catch (NullPointerException e) { return 0; }
-    return getConfig().getConfigurationSection("spawns").getKeys(false).size();
+    try { getSpawns().size(); } catch (NullPointerException e) { return 0; }
+    return getSpawns().size();
   }
 
   public void sendPlayerToSpawn(Player p, String spawn){ p.teleport(getSpawnLocation(spawn)); }
 
   public void sendPlayerToSpawn(Player p){
-    if (getNumberOfSpawns() == 0 || getRandomSpawn(p) == null) { return; }
-    sendPlayerToSpawn(p, getRandomSpawn(p));
+    if (getSpawns(p).size() != 0) {
+      sendPlayerToSpawn(p, getRandomSpawn(p));
+    }
   }
 
   public String getSpawn(int index){

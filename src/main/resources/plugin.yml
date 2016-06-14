@@ -19,7 +19,7 @@ commands:
   listspawns:
     description: "Lists all spawns"
     usage: "/<command>"
-    aliases: [spawns, lspawns, lspawn]
+    aliases: [spawns, lspawns, lspawn, spawnlist]
 
 permissions:
   multispawn.spawn:
