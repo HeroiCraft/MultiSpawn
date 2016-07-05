@@ -1,6 +1,7 @@
 package com.herocc.bukkit.multispawn.commands;
 
 import com.herocc.bukkit.multispawn.MultiSpawn;
+import com.herocc.bukkit.multispawn.SpawnUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -10,6 +11,7 @@ import org.bukkit.entity.Player;
 
 public class SetSpawn implements CommandExecutor {
   private final MultiSpawn plugin = MultiSpawn.getPlugin();
+  private final SpawnUtils spawnUtils = new SpawnUtils();
 
   @Override
   public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -18,7 +20,7 @@ public class SetSpawn implements CommandExecutor {
       String spawnName = "default";
       if (p.hasPermission("multispawn.setspawn")){
         if (args.length >= 1) { spawnName = args[0]; }
-        plugin.setSpawn(p.getLocation(), spawnName);
+        spawnUtils.setSpawn(p.getLocation(), spawnName);
         p.sendMessage(ChatColor.GREEN + "Set spawn " + ChatColor.BOLD  + spawnName + ChatColor.RESET + ChatColor.GREEN + " to your current location");
         return true;
       } else {

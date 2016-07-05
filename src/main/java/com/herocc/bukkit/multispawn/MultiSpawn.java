@@ -19,9 +19,10 @@ import java.util.logging.Level;
 
 public class MultiSpawn extends JavaPlugin  {
   private static MultiSpawn instance;
-  protected Random random = new Random();
+  Random random = new Random();
 
   public static final MultiSpawn getPlugin() { return instance; }
+  public SpawnUtils getSpawnUtils() { return new SpawnUtils(); }
 
   @Override
   public void onEnable(){
@@ -46,69 +47,6 @@ public class MultiSpawn extends JavaPlugin  {
     this.saveConfig();
     random = null;
     instance = null;
-  }
-
-  public Location getSpawnLocation(String name){
-    String[] loc = getConfig().getString("spawns." + name + ".loc").split("\\,");
-    World w = Bukkit.getWorld(loc[0]);
-    Double x = Double.parseDouble(loc[1]);
-    Double y = Double.parseDouble(loc[2]);
-    Double z = Double.parseDouble(loc[3]);
-    float yaw = Float.parseFloat(loc[4]);
-    float pitch = Float.parseFloat(loc[5]);
-    return new Location(w, x, y, z, yaw, pitch);
-  }
-
-  public void setSpawn(Location loc, String name) {
-    String location = loc.getWorld().getName() + "," + loc.getX() + "," + (loc.getY() + 0.6) + "," + loc.getZ() + "," + loc.getYaw() + "," + loc.getPitch();
-    this.getConfig().set("spawns." + name + ".loc", location);
-    this.saveConfig();
-  }
-
-  public void removeSpawn(String name){
-    this.getConfig().set("spawns." + name, null);
-    this.saveConfig();
-  }
-
-  public ArrayList<String> getSpawns(){
-    Set<String> spawns = getConfig().getConfigurationSection("spawns").getKeys(false);
-    ArrayList<String> spawnsNew = new ArrayList<>();
-    for (String name : spawns) {
-      spawnsNew.add(name);
-    }
-    return spawnsNew;
-  }
-
-  public ArrayList<String> getSpawns(CommandSender p){
-    ArrayList<String> allowedSpawns = new ArrayList<>();
-    for (String name : getSpawns()) {
-      if (p.hasPermission("multispawn.spawn." + name)){ allowedSpawns.add(name); }
-    }
-    Collections.shuffle(allowedSpawns, random);
-    if (allowedSpawns.size() == 0 && getConfig().getBoolean("useDefaultAsFallback", true) && (getSpawnLocation("default") != null)) {
-      // In future updates, possibly use world spawn rather than default?
-      allowedSpawns.add("default");
-    }
-    return allowedSpawns;
-  }
-
-  public String getRandomSpawn(Player p){ return getSpawns(p).get(0); }
-
-  public int getNumberOfSpawns(){
-    try { getSpawns().size(); } catch (NullPointerException e) { return 0; }
-    return getSpawns().size();
-  }
-
-  public void sendPlayerToSpawn(Player p, String spawn){ p.teleport(getSpawnLocation(spawn)); }
-
-  public void sendPlayerToSpawn(Player p){
-    if (getSpawns(p).size() != 0) {
-      sendPlayerToSpawn(p, getRandomSpawn(p));
-    }
-  }
-
-  public String getSpawn(int index){
-    return getSpawns().get(index);
   }
 
   private void initMetrics() {

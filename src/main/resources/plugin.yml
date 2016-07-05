@@ -20,6 +20,10 @@ commands:
     description: "Lists all spawns"
     usage: "/<command>"
     aliases: [spawns, lspawns, lspawn, spawnlist]
+  configurespawn:
+      description: "Lists all spawns"
+      usage: "/<command> <spawnName> <settingName> <setTo>"
+      aliases: [cspawn, configspawn]
 
 permissions:
   multispawn.spawn:

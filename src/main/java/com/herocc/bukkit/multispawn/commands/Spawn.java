@@ -12,17 +12,17 @@ public class Spawn implements CommandExecutor {
 
   @Override
   public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-    if (plugin.getNumberOfSpawns() == 0){ sender.sendMessage(ChatColor.RED + "There are no configured spawns!"); return true;}
+    if (plugin.getSpawnUtils().getNumberOfSpawns() == 0){ sender.sendMessage(ChatColor.RED + "There are no configured spawns!"); return true;}
     if (sender instanceof Player){
       Player p = (Player) sender;
       if (args.length == 1){
         String spawn = args[0];
         if (p.hasPermission("multispawn.bycommand") && p.hasPermission("multispawn.spawn." + spawn)){
-          plugin.sendPlayerToSpawn(p, spawn);
+          plugin.getSpawnUtils().sendPlayerToSpawn(p, spawn);
           return true;
         }
       } else if (args.length == 0){
-        plugin.sendPlayerToSpawn(p);
+        plugin.getSpawnUtils().sendPlayerToSpawn(p);
         return true;
       }
     } else {

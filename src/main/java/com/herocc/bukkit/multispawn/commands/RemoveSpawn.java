@@ -13,8 +13,8 @@ public class RemoveSpawn implements CommandExecutor {
   public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
     if (sender.hasPermission("multispawn.removespawn")){
       if (args.length == 1) {
-        if (plugin.getSpawns().contains(args[0])) {
-          plugin.removeSpawn(args[0]);
+        if (plugin.getSpawnUtils().getSpawns().contains(args[0])) {
+          plugin.getSpawnUtils().removeSpawn(args[0]);
           sender.sendMessage(ChatColor.GREEN + "Removed spawn " + ChatColor.BOLD + args[0]);
           return true;
         } else {

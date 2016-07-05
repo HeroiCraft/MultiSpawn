@@ -13,11 +13,11 @@ public class ListSpawns implements CommandExecutor {
   @Override
   public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
     if (sender.hasPermission("multispawn.list")){
-      if (plugin.getNumberOfSpawns() == 0){ sender.sendMessage(ChatColor.RED + "There are no configured spawns!"); return true;}
-      sender.sendMessage(ChatColor.GREEN + "There are " + plugin.getNumberOfSpawns() + " spawns:");
-      for (int i=0; i<plugin.getNumberOfSpawns(); i++){
-        String spawn = plugin.getSpawn(i);
-        Location spawnLoc = plugin.getSpawnLocation(spawn);
+      if (plugin.getSpawnUtils().getNumberOfSpawns() == 0){ sender.sendMessage(ChatColor.RED + "There are no configured spawns!"); return true;}
+      sender.sendMessage(ChatColor.GREEN + "There are " + plugin.getSpawnUtils().getNumberOfSpawns() + " spawns:");
+      for (int i=0; i<plugin.getSpawnUtils().getNumberOfSpawns(); i++){
+        String spawn = plugin.getSpawnUtils().getSpawn(i);
+        Location spawnLoc = plugin.getSpawnUtils().getSpawnLocation(spawn);
         ChatColor spawnNameColor = ChatColor.GREEN;
         if (!sender.hasPermission("multispawn.spawn." + spawn)) { spawnNameColor = ChatColor.RED; }
         sender.sendMessage(spawnNameColor + Integer.toString(i+1) + ". " + spawn + ChatColor.GREEN + ": " +
