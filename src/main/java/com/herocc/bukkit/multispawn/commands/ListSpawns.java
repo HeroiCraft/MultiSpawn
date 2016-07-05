@@ -18,8 +18,9 @@ public class ListSpawns implements CommandExecutor {
       for (int i=0; i<plugin.getNumberOfSpawns(); i++){
         String spawn = plugin.getSpawn(i);
         Location spawnLoc = plugin.getSpawnLocation(spawn);
-        //TODO Color spawn name red if player doesn't have permission
-        sender.sendMessage(ChatColor.GREEN + Integer.toString(i+1) + ". " + spawn + ": " +
+        ChatColor spawnNameColor = ChatColor.GREEN;
+        if (!sender.hasPermission("multispawn.spawn." + spawn)) { spawnNameColor = ChatColor.RED; }
+        sender.sendMessage(spawnNameColor + Integer.toString(i+1) + ". " + spawn + ChatColor.GREEN + ": " +
             spawnLoc.getWorld().getName() + ", " + spawnLoc.getBlockX() + "X, " + spawnLoc.getBlockY() + "Y, " + spawnLoc.getBlockZ() + "Z");
       }
     } else {
