@@ -99,7 +99,13 @@ public class SpawnUtils {
     return getSpawns().size();
   }
 
-  public void sendPlayerToSpawn(Player p, String spawn){ p.teleport(getSpawnLocation(spawn)); }
+  public void sendPlayerToSpawn(Player p, String spawn){
+    if (spawn.equals("random") && !getSpawns().contains(spawn)) {
+      p.teleport(getSpawnLocation(getRandomSpawn(p)));
+    } else {
+      p.teleport(getSpawnLocation(spawn));
+    }
+  }
 
   public void sendPlayerToSpawn(Player p){
     if (getSpawns(p, false).size() != 0) {

@@ -1,6 +1,5 @@
 package com.herocc.bukkit.multispawn.commands;
 
-import com.herocc.bukkit.multispawn.MultiSpawn;
 import com.herocc.bukkit.multispawn.SpawnUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -10,7 +9,6 @@ import org.bukkit.entity.Player;
 
 
 public class SetSpawn implements CommandExecutor {
-  private final MultiSpawn plugin = MultiSpawn.getPlugin();
   private final SpawnUtils spawnUtils = new SpawnUtils();
 
   @Override
@@ -20,6 +18,10 @@ public class SetSpawn implements CommandExecutor {
       String spawnName = "default";
       if (p.hasPermission("multispawn.setspawn")){
         if (args.length >= 1) { spawnName = args[0]; }
+        if (spawnName.equals("random")) {
+          sender.sendMessage(ChatColor.RED + spawnName + " is a reserved name, please choose something else!");
+          return true;
+        }
         spawnUtils.setSpawn(p.getLocation(), spawnName);
         p.sendMessage(ChatColor.GREEN + "Set spawn " + ChatColor.BOLD  + spawnName + ChatColor.RESET + ChatColor.GREEN + " to your current location");
         return true;

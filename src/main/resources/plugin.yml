@@ -8,7 +8,7 @@ dev-url: http://dev.bukkit.org/bukkit-plugins/multi-spawn/
 commands:
   spawn:
     description: "Teleports player to designated spawn"
-    usage: "/<command> [name]"
+    usage: "/<command> [name] [player]"
   setspawn:
     description: "Sets a spawn"
     usage: "/<commmand> [name]"
@@ -33,4 +33,6 @@ permissions:
   multispawn.bycommand:
     default: op
   multispawn.removespawn:
+    default: op
+  multispawn.others:
     default: op

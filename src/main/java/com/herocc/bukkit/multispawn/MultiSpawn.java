@@ -2,19 +2,11 @@ package com.herocc.bukkit.multispawn;
 
 import com.herocc.bukkit.multispawn.commands.*;
 import com.herocc.bukkit.multispawn.events.*;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.World;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.mcstats.Metrics;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Random;
-import java.util.Set;
 import java.util.logging.Level;
 
 public class MultiSpawn extends JavaPlugin  {
