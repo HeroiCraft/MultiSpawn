@@ -1,23 +1,19 @@
-group 'MultiSpawn'
-version '1.2.0'
+import org.apache.tools.ant.filters.ReplaceTokens
 
-apply plugin: 'java'
-apply plugin: 'idea'
-apply plugin: 'rebel'
+plugins {
+  id 'java'
+  id 'idea'
+  id 'org.zeroturnaround.gradle.jrebel' version '1.1.3'
+  id 'ninja.miserable.blossom' version '1.0.1'
+  id 'com.github.johnrengelman.shadow' version '1.2.3'
+}
+
+group 'MultiSpawn'
+version '1.2.1'
 
 //noinspection GroovyUnusedAssignment
 sourceCompatibility = 1.7
 
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-
-    dependencies {
-        classpath group: 'org.zeroturnaround', name: 'gradle-jrebel-plugin', version: '1.1.2'
-    }
-}
-jar.dependsOn(generateRebel)
 
 repositories {
   mavenCentral()
@@ -30,27 +26,50 @@ dependencies {
   compile group: 'org.mcstats.bukkit', name: 'metrics', version: 'R7'
 }
 
+artifacts { // task 'build' runs generates uberjar
+  archives shadowJar
+}
+
+//noinspection GroovyAssignabilityCheck
+jar {
+  version = version + '-min' // we want the Uberjar to be distributed, this is the minified version
+  dependsOn generateRebel // Automatically generate jRebel configs
+}
+
+shadowJar {
+  dependencies {
+    include dependency('org.mcstats.bukkit:metrics')
+  }
+  classifier = null
+  dependsOn generateRebel
+}
+
 idea {
-    module {
-        downloadJavadoc = true
-    }
+  module {
+    downloadJavadoc = true // Automatically download javadocs
+  }
 }
 
 ext {
-    // Placeholders for configuration filtering
-    description = 'Teleports players to a random spawn on join'
-    author = 'HeroCC <https://herocc.com>'
+  // Placeholders for configuration filtering
+  description = 'Teleports players to a random spawn on join'
+  author = 'HeroCC <https://herocc.com>'
 
-    javaPackage = 'com.herocc.bukkit.multispawn'
-    resourceTokens = [
-        'Name'   : rootProject.name,
-        'Description': description,
-        'Version': version,
-        'Author' : author
-    ];
+  javaPackage = 'com.herocc.bukkit.multispawn'
+  resourceTokens = [
+      'Name'   : rootProject.name,
+      'Description': description,
+      'Version': version,
+      'Author' : author
+  ];
 }
 
+//noinspection GroovyAssignabilityCheck
 processResources {
-    include 'plugin.yml', 'config.yml'
-    filter org.apache.tools.ant.filters.ReplaceTokens, tokens: resourceTokens
+  include 'plugin.yml', 'config.yml'
+  filter ReplaceTokens, tokens: resourceTokens
+}
+
+blossom {
+  replaceToken '@Version@', project.version, "src/main/java/${javaPackage}/utils/Constants.java" //TODO Set this up
 }
