@@ -22,7 +22,7 @@ repositories {
 }
 
 dependencies {
-  compile group: 'org.bukkit', name: 'bukkit', version: '1.9.4-R0.1-SNAPSHOT'
+  compile group: 'org.bukkit', name: 'bukkit', version: '1.10-R0.1-SNAPSHOT'
   compile group: 'org.mcstats.bukkit', name: 'metrics', version: 'R7'
 }
 
