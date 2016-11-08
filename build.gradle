@@ -8,8 +8,8 @@ plugins {
   id 'com.github.johnrengelman.shadow' version '1.2.3'
 }
 
-group 'MultiSpawn'
-version '1.2.1'
+group 'com.herocc.bukkit.multispawn'
+version '1.2.2'
 
 //noinspection GroovyUnusedAssignment
 sourceCompatibility = 1.7
@@ -23,7 +23,7 @@ repositories {
 
 dependencies {
   compile group: 'org.bukkit', name: 'bukkit', version: '1.10-R0.1-SNAPSHOT'
-  compile group: 'org.mcstats.bukkit', name: 'metrics', version: 'R7'
+  compile group: 'org.mcstats.bukkit', name: 'metrics', version: 'R8-SNAPSHOT'
 }
 
 artifacts { // task 'build' runs generates uberjar
