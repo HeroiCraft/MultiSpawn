@@ -79,7 +79,7 @@ public class SpawnUtils {
         if (getDisallowedWorlds(spawnName).contains(currentWorld)) { allowedSpawns.remove(spawnName); }
       }
     }
-    Collections.shuffle(allowedSpawns, plugin.random);
+    Collections.shuffle(allowedSpawns, plugin.random); // Randomize the Array if there are multiple possible spawns
     if (allowedSpawns.size() == 0 && plugin.getConfig().getBoolean("useDefaultAsFallback", true) && (getSpawnLocation("default") != null)) {
       // In future updates, possibly use world spawn rather than default?
       allowedSpawns.add("default");
