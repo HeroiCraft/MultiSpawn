@@ -100,7 +100,7 @@ public class SpawnUtils {
   }
 
   public void sendPlayerToSpawn(Player p, String spawn){
-    if (spawn.equals("random") && !getSpawns().contains(spawn)) {
+    if ("random".equals(spawn) && !getSpawns().contains(spawn)) {
       p.teleport(getSpawnLocation(getRandomSpawn(p)));
     } else {
       p.teleport(getSpawnLocation(spawn));

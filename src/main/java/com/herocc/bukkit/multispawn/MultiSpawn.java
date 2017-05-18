@@ -11,7 +11,7 @@ import java.util.logging.Level;
 
 public class MultiSpawn extends JavaPlugin  {
   private static MultiSpawn instance;
-  Random random = new Random();
+  protected Random random = new Random();
 
   public static final MultiSpawn getPlugin() { return instance; }
   public SpawnUtils getSpawnUtils() { return new SpawnUtils(); }

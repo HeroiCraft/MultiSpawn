@@ -18,7 +18,7 @@ public class SetSpawn implements CommandExecutor {
       String spawnName = "default";
       if (p.hasPermission("multispawn.setspawn")){
         if (args.length >= 1) { spawnName = args[0]; }
-        if (spawnName.equals("random")) {
+        if ("random".equals(spawnName)) {
           sender.sendMessage(ChatColor.RED + spawnName + " is a reserved name, please choose something else!");
           return true;
         }
