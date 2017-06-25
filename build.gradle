@@ -5,10 +5,11 @@ plugins {
   id 'idea'
   id 'org.zeroturnaround.gradle.jrebel' version '1.1.3'
   id 'ninja.miserable.blossom' version '1.0.1'
-  id 'com.github.johnrengelman.shadow' version '1.2.3'
+  id 'com.github.johnrengelman.shadow' version '2.0.1'
 }
 
-group 'com.herocc.bukkit.multispawn'
+String packagePath = 'com.herocc.bukkit.multispawn'
+group packagePath
 version '1.2.4'
 
 //noinspection GroovyUnusedAssignment
@@ -23,7 +24,7 @@ repositories {
 
 dependencies {
   compile group: 'org.bukkit', name: 'bukkit', version: '1.12-R0.1-SNAPSHOT'
-  compile group: 'org.bstats', name: 'bstats-bukkit', version: '1.1'
+  compile group: 'org.bstats', name: 'bstats-bukkit-lite', version: '1.1'
 }
 
 artifacts { // task 'build' runs generates uberjar
@@ -37,8 +38,9 @@ jar {
 
 shadowJar {
   dependencies {
-    include dependency('org.bstats:bstats-bukkit')
+    include dependency('org.bstats:bstats-bukkit-lite')
   }
+  relocate('org.bstats', packagePath + '.dependencies')
   classifier = null
   dependsOn generateRebel
 }
@@ -54,7 +56,7 @@ ext {
   description = 'Teleports players to a random spawn on join'
   author = 'HeroCC <https://herocc.com>'
 
-  javaPackage = 'com.herocc.bukkit.multispawn'
+  javaPackage = packagePath
   resourceTokens = [
       'Name'   : rootProject.name,
       'Description': description,

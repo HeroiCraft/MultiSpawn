@@ -2,7 +2,7 @@ package com.herocc.bukkit.multispawn;
 
 import com.herocc.bukkit.multispawn.commands.*;
 import com.herocc.bukkit.multispawn.events.*;
-import org.bstats.Metrics;
+import org.bstats.MetricsLite;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Random;
@@ -29,18 +29,12 @@ public class MultiSpawn extends JavaPlugin  {
     this.getServer().getPluginManager().registerEvents(new PlayerJoin(), this);
     this.getServer().getPluginManager().registerEvents(new PlayerDeath(), this);
 
-    initMetrics();
+    MetricsLite metrics = new MetricsLite(this);
   }
 
   @Override
   public void onDisable(){
     this.saveConfig();
-    random = null;
-    instance = null;
-  }
-
-  private void initMetrics() {
-      new Metrics(this);
   }
 }
 
