@@ -55,9 +55,7 @@ public class SpawnUtils {
   public ArrayList<String> getSpawns(){
     Set<String> spawns = plugin.getConfig().getConfigurationSection("spawns").getKeys(false);
     ArrayList<String> spawnsNew = new ArrayList<>();
-    for (String name : spawns) {
-      spawnsNew.add(name);
-    }
+    spawnsNew.addAll(spawns);
     return spawnsNew;
   }
 

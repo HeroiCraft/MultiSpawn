@@ -14,6 +14,7 @@ public class PlayerDeath implements Listener {
   public void onPlayerDeath(PlayerDeathEvent ev) {
     final Player p = ev.getEntity();
     if (!(p.hasPermission("multispawn.noteleport")) && !(plugin.getSpawnUtils().getSpawns().isEmpty()) && !(plugin.getSpawnUtils().getSpawns() == null)){
+      // Teleport player if spawn list isn't empty
       plugin.getSpawnUtils().sendPlayerToSpawn(p);
     }
   }

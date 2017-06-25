@@ -23,7 +23,7 @@ public class MultiSpawn extends JavaPlugin  {
     getConfig().options().copyDefaults(true);
     this.saveConfig();
 
-    this.getCommand("spawn").setExecutor(new Spawn());
+    this.getCommand("spawn").setExecutor(new SpawnCommand());
     this.getCommand("setspawn").setExecutor(new SetSpawn());
     this.getCommand("removespawn").setExecutor(new RemoveSpawn());
     this.getCommand("listspawns").setExecutor(new ListSpawns());
