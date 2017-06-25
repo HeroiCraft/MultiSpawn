@@ -9,7 +9,7 @@ plugins {
 }
 
 group 'com.herocc.bukkit.multispawn'
-version '1.2.3'
+version '1.2.4'
 
 //noinspection GroovyUnusedAssignment
 sourceCompatibility = 1.7
@@ -18,19 +18,18 @@ sourceCompatibility = 1.7
 repositories {
   mavenCentral()
   maven { url 'https://hub.spigotmc.org/nexus/content/groups/public' }
-  maven { url 'http://repo.mcstats.org/content/repositories/public' }
+  maven { url 'https://repo.bstats.org/content/repositories/releases' }
 }
 
 dependencies {
-  compile group: 'org.bukkit', name: 'bukkit', version: '1.10-R0.1-SNAPSHOT'
-  compile group: 'org.mcstats.bukkit', name: 'metrics', version: 'R8-SNAPSHOT'
+  compile group: 'org.bukkit', name: 'bukkit', version: '1.12-R0.1-SNAPSHOT'
+  compile group: 'org.bstats', name: 'bstats-bukkit', version: '1.1'
 }
 
 artifacts { // task 'build' runs generates uberjar
   archives shadowJar
 }
 
-//noinspection GroovyAssignabilityCheck
 jar {
   version = version + '-min' // we want the Uberjar to be distributed, this is the minified version
   dependsOn generateRebel // Automatically generate jRebel configs
@@ -38,7 +37,7 @@ jar {
 
 shadowJar {
   dependencies {
-    include dependency('org.mcstats.bukkit:metrics')
+    include dependency('org.bstats:bstats-bukkit')
   }
   classifier = null
   dependsOn generateRebel

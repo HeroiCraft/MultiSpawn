@@ -2,12 +2,10 @@ package com.herocc.bukkit.multispawn;
 
 import com.herocc.bukkit.multispawn.commands.*;
 import com.herocc.bukkit.multispawn.events.*;
+import org.bstats.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.mcstats.Metrics;
 
-import java.io.IOException;
 import java.util.Random;
-import java.util.logging.Level;
 
 public class MultiSpawn extends JavaPlugin  {
   private static MultiSpawn instance;
@@ -42,12 +40,7 @@ public class MultiSpawn extends JavaPlugin  {
   }
 
   private void initMetrics() {
-    try {
-      new Metrics(this).start();
-    } catch (IOException e) {
-      this.getLogger().log(Level.FINER, "Metrics init failed!");
-    }
+      new Metrics(this);
   }
-
 }
 
