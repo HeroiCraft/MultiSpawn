@@ -17,8 +17,11 @@ public class PlayerJoin implements Listener {
     final Player p = ev.getPlayer();
     if (p.hasPermission("multispawn.noteleport") // If player is excluded
         || plugin.getSpawnUtils().getSpawns(p, false) == null // If spawns are null
-        || plugin.getSpawnUtils().getSpawns(p, false).isEmpty() // If spawns are empty
-        || plugin.getConfig().getBoolean("useDefaultAsFallback")) return; // Stop if we don't use default spawn
+        || plugin.getSpawnUtils().getSpawns(p, false).isEmpty()) return; // If spawns are empty
+  
+    if (plugin.getSpawnUtils().getSpawns(p, true).size() == 1
+        && plugin.getSpawnUtils().getSpawns(p, true).contains("default")
+        && !plugin.getConfig().getBoolean("useDefaultAsFallback", true)) return;
         
     plugin.getSpawnUtils().sendPlayerToSpawn(p);
   }
