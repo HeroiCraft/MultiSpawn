@@ -15,7 +15,11 @@ public class PlayerJoin implements Listener {
   // https://bukkit.org/threads/difference-between-playerjoinevent-and-playerloginevent.76836/#post-1129849
   public void onPlayerJoin(PlayerJoinEvent ev) {
     final Player p = ev.getPlayer();
-    if (p.hasPermission("multispawn.noteleport") || plugin.getSpawnUtils().getSpawns(p, false).isEmpty() || plugin.getSpawnUtils().getSpawns(p, false) == null) { return; }
+    if (p.hasPermission("multispawn.noteleport") // If player is excluded
+        || plugin.getSpawnUtils().getSpawns(p, false) == null // If spawns are null
+        || plugin.getSpawnUtils().getSpawns(p, false).isEmpty() // If spawns are empty
+        || plugin.getConfig().getBoolean("useDefaultAsFallback")) return; // Stop if we don't use default spawn
+        
     plugin.getSpawnUtils().sendPlayerToSpawn(p);
   }
 }

@@ -21,7 +21,7 @@ public class SpawnCommand implements CommandExecutor {
       } else if (args.length == 1 && sender instanceof Player){ // Sender must be player
         Player p = (Player) sender;
         String spawn = args[0]; // Spawn is first arg
-        if (p.hasPermission("multispawn.bycommand") && p.hasPermission("multispawn.spawn." + spawn)){
+        if (p.hasPermission("multispawn.bycommand." + spawn) || p.hasPermission("multispawn.spawn." + spawn)){
           // If sender has permission to use command and specified spawn
           plugin.getSpawnUtils().sendPlayerToSpawn(p, spawn);
           return true;
@@ -34,7 +34,7 @@ public class SpawnCommand implements CommandExecutor {
           sender.sendMessage(ChatColor.RED + "Player " + args[1] + " isn't online!");
           return true;
         }
-        if (sender.hasPermission("multispawn.bycommand") && sender.hasPermission("multispawn.others") && sender.hasPermission("multispawn.spawn." + spawn)){
+        if ((sender.hasPermission("multispawn.bycommand" + spawn) || sender.hasPermission("multispawn.spawn." + spawn)) && sender.hasPermission("multispawn.others")){
           // If sender has permission to use command, to TP others, and specific spawn
           plugin.getSpawnUtils().sendPlayerToSpawn(p, spawn);
           sender.sendMessage(p.getDisplayName() + ChatColor.GREEN + " sent to '" + spawn + "'");
