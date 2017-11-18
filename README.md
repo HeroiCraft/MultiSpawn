@@ -17,3 +17,7 @@ A plugin the lets players spawn at different locations, depending on their permi
   * _multispawn.removespawn_ - allows usage of /removespawn
   * _multispawn.others_ - allows you to teleport others to spawn
   
+## Sponsors:
+<a target='_blank' rel='nofollow' href='https://app.codesponsor.io/link/sRuo2pom6NSCPNM2H1QbUJWs/HeroiCraft/MultiSpawn'>
+  <img alt='Sponsor' width='888' height='68' src='https://app.codesponsor.io/embed/sRuo2pom6NSCPNM2H1QbUJWs/HeroiCraft/MultiSpawn.svg' />
+</a>
