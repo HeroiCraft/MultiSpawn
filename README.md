@@ -17,5 +17,3 @@ A plugin the lets players spawn at different locations, depending on their permi
   * _multispawn.removespawn_ - allows usage of /removespawn
   * _multispawn.others_ - allows you to teleport others to spawn
   
-## Sponsors:
-
