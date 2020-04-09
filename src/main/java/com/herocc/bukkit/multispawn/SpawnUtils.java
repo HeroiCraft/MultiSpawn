@@ -1,6 +1,8 @@
 package com.herocc.bukkit.multispawn;
 
+import io.papermc.lib.PaperLib;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.command.CommandSender;
@@ -97,12 +99,20 @@ public class SpawnUtils {
     return getSpawns().size();
   }
 
-  public void sendPlayerToSpawn(Player p, String spawn){
-    if ("random".equals(spawn) && !getSpawns().contains(spawn)) {
-      p.teleport(getSpawnLocation(getRandomSpawn(p)));
+  public void sendPlayerToSpawn(Player p, String name){
+    Location spawn;
+    if ("random".equals(name) && !getSpawns().contains(name)) {
+      spawn = getSpawnLocation(getRandomSpawn(p));
     } else {
-      p.teleport(getSpawnLocation(spawn));
+      spawn = getSpawnLocation(name);
     }
+  
+    PaperLib.teleportAsync(p, spawn).thenAccept(result -> {
+      if (!result) {
+        p.sendMessage(ChatColor.RED + "Tried to send you to spawn (" + name + ") but failed!");
+        plugin.getLogger().warning("Tried to send " + p.getName() + " to spawn " + name + ") but failed!");
+      }
+    });
   }
 
   public void sendPlayerToSpawn(Player p){
