@@ -9,14 +9,20 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 
 public class SpawnUtils {
   private final MultiSpawn plugin = MultiSpawn.getPlugin();
+  private List<String> reservedNames = Arrays.asList("random");
 
   public Location getSpawnLocation(String name){
-    String[] loc = plugin.getConfig().getString("spawns." + name + ".loc").split("\\,");
+    String locString = plugin.getConfig().getString("spawns." + name + ".loc");
+    if (locString == null) return null; // If the spawn doesn't exist
+    
+    String[] loc = locString.split("\\,");
     World w = Bukkit.getWorld(loc[0]);
     Double x = Double.parseDouble(loc[1]);
     Double y = Double.parseDouble(loc[2]);
@@ -26,7 +32,7 @@ public class SpawnUtils {
     return new Location(w, x, y, z, yaw, pitch);
   }
 
-  public ArrayList<String> getDisallowedWorlds(String spawnName){
+  public List<String> getDisallowedWorlds(String spawnName){
     return new ArrayList<>(plugin.getConfig().getStringList("spawns." + spawnName + ".bannedWorlds"));
   }
 
@@ -35,10 +41,13 @@ public class SpawnUtils {
    * @param loc Location of the new spawn
    * @param name Name of the new spawn
    */
-  public void setSpawn(Location loc, String name) {
+  public boolean setSpawn(Location loc, String name) {
+    if (getReservedNames().contains(name)) return false;
+    
     String location = loc.getWorld().getName() + "," + loc.getX() + "," + loc.getY() + "," + loc.getZ() + "," + loc.getYaw() + "," + loc.getPitch();
     plugin.getConfig().set("spawns." + name + ".loc", location);
     plugin.saveConfig();
+    return true;
   }
 
   /**
@@ -54,7 +63,7 @@ public class SpawnUtils {
    * Gets all spawns on the server
    * @return All spawns on the server
    */
-  public ArrayList<String> getSpawns(){
+  public List<String> getSpawns(){
     Set<String> spawns = plugin.getConfig().getConfigurationSection("spawns").getKeys(false);
     ArrayList<String> spawnsNew = new ArrayList<>();
     spawnsNew.addAll(spawns);
@@ -67,7 +76,7 @@ public class SpawnUtils {
    * @param fromAllWorlds Should we check if the player is in a banned world
    * @return All spawns the player is allowed to teleport to
    */
-  public ArrayList<String> getSpawns(CommandSender p, boolean fromAllWorlds){
+  public List<String> getSpawns(CommandSender p, boolean fromAllWorlds){
     ArrayList<String> allowedSpawns = new ArrayList<>();
     for (String name : getSpawns()) {
       if (p.hasPermission("multispawn.spawn." + name)){ allowedSpawns.add(name); }
@@ -75,7 +84,7 @@ public class SpawnUtils {
     if (p instanceof Player && !fromAllWorlds && !p.hasPermission("multispawn.bypassBannedWorlds")) {
       Player player = (Player) p;
       String currentWorld = player.getWorld().getName();
-      for (String spawnName : allowedSpawns){
+      for (String spawnName : allowedSpawns) {
         if (getDisallowedWorlds(spawnName).contains(currentWorld)) { allowedSpawns.remove(spawnName); }
       }
     }
@@ -95,8 +104,7 @@ public class SpawnUtils {
   public String getRandomSpawn(Player p){ return getSpawns(p, false).get(0); }
 
   public int getNumberOfSpawns(){
-    try { getSpawns().size(); } catch (NullPointerException e) { return 0; }
-    return getSpawns().size();
+    try { return getSpawns().size(); } catch (NullPointerException e) { return 0; }
   }
 
   public void sendPlayerToSpawn(Player p, String name){
@@ -122,5 +130,8 @@ public class SpawnUtils {
   }
 
   public String getSpawn(int index){ return getSpawns().get(index); }
-
+  
+  public List<String> getReservedNames() {
+    return reservedNames;
+  }
 }

@@ -29,16 +29,44 @@ public class MultiSpawnTest {
   @Test
   public void setSpawnCommandPlayer() {
     PlayerMock p = server.addPlayer();
-    Location loc = p.getEyeLocation();
+    p.addAttachment(plugin).setPermission("multispawn.setspawn", true);
     
     p.setLocation(new Location(server.getWorld("world"), 9, 9, 9));
     server.dispatchCommand(p, "setspawn");
-    assertEquals(loc, plugin.getSpawnUtils().getSpawnLocation("default"));
+    assertEquals(p.getEyeLocation(), plugin.getSpawnUtils().getSpawnLocation("default"));
+    assertEquals(1, plugin.getSpawnUtils().getNumberOfSpawns());
     
     p.setLocation(new Location(server.getWorld("world"), 7, 7, 7));
     server.dispatchCommand(p, "setspawn newSpawn");
-    assertEquals(loc, plugin.getSpawnUtils().getSpawnLocation("newSpawn"));
+    assertEquals(p.getEyeLocation(), plugin.getSpawnUtils().getSpawnLocation("newSpawn"));
     assertEquals(2, plugin.getSpawnUtils().getNumberOfSpawns());
+  }
+  
+  @Test
+  public void setSpawnCommandNoPermission() {
+    PlayerMock p = server.addPlayer();
+    p.setLocation(new Location(server.getWorld("world"), 9, 9, 9));
+    
+    server.dispatchCommand(p, "setspawn");
+    assertNotEquals(p.getEyeLocation(), plugin.getSpawnUtils().getSpawnLocation("default"));
+    
+    server.dispatchCommand(p, "setspawn newSpawn");
+    assertNotEquals(p.getEyeLocation(), plugin.getSpawnUtils().getSpawnLocation("newSpawn"));
+    assertNotEquals(2, plugin.getSpawnUtils().getNumberOfSpawns());
+  }
+  
+  @Test
+  public void setSpawnCommandRandomReserved() {
+    PlayerMock p = server.addPlayer();
+    
+    server.dispatchCommand(p, "setspawn random");
+    assertFalse(plugin.getSpawnUtils().getSpawns().contains("random"));
+  }
+  
+  @Test
+  public void testSpawnUtilsRandomReserved() {
+    assertFalse(plugin.getSpawnUtils().setSpawn(defaultSpawn, "random"));
+    assertFalse(plugin.getSpawnUtils().getSpawns().contains("random"));
   }
   
   @Test
@@ -59,14 +87,22 @@ public class MultiSpawnTest {
   }
   
   @Test
-  public void testPlayerMoves() {
-    PlayerMock player = new PlayerMockFactory(server).createRandomPlayer();
-    Location start = player.getLocation();
-    server.addPlayer(player);
+  public void testPlayerMovesOnJoin() {
+    PlayerMock p = new PlayerMockFactory(server).createRandomPlayer();
+    Location start = p.getLocation();
+    server.addPlayer(p);
     
-    plugin.getSpawnUtils().sendPlayerToSpawn(player);
+    assertNotEquals(start, p.getLocation());
+  }
+  
+  @Test
+  public void testPlayerWithPermissionIsEventImmune() {
+    PlayerMock p = new PlayerMockFactory(server).createRandomPlayer();
+    Location start = p.getLocation();
+    p.addAttachment(plugin).setPermission("multispawn.noteleport", true);
+    server.addPlayer(p);
     
-    assertNotEquals(start, player.getLocation());
+    assertEquals(start, p.getLocation());
   }
   
   @After

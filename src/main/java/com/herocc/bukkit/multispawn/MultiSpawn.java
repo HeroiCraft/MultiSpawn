@@ -39,7 +39,7 @@ public class MultiSpawn extends JavaPlugin {
   
     try {
       Class.forName("be.seeseemelk.mockbukkit.MockBukkit");
-    } catch(ClassNotFoundException e) {
+    } catch (ClassNotFoundException e) {
       // Only start metrics on non-mocked instances
       MetricsLite metrics = new MetricsLite(this, 1022);
     }
