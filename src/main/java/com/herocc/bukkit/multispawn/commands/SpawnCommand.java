@@ -12,8 +12,15 @@ public class SpawnCommand implements CommandExecutor {
 
   @Override
   public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-    if (plugin.getSpawnUtils().getNumberOfSpawns() == 0){ sender.sendMessage(ChatColor.RED + "There are no configured spawns!"); return true;} // Break if there are no spawns
-    if (args.length != 2 && !(sender instanceof Player)) { sender.sendMessage(ChatColor.RED + "Robots can't run that!"); return true; }
+    if (plugin.getSpawnUtils().getNumberOfSpawns() == 0) {
+      // Break if there are no spawns
+      sender.sendMessage(ChatColor.RED + "There are no configured spawns!");
+      return true;
+    }
+    if (args.length != 2 && !(sender instanceof Player)) {
+      sender.sendMessage(ChatColor.RED + "Robots can't run that!");
+      return true;
+    }
 
     if (args.length == 0) {
       // Sender must be player if none is specified
