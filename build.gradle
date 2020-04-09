@@ -4,7 +4,7 @@ plugins {
   id 'java'
   id 'idea'
   id 'ninja.miserable.blossom' version '1.0.1'
-  id 'com.github.johnrengelman.shadow' version '2.0.1'
+  id 'com.github.johnrengelman.shadow' version '5.2.0'
 }
 
 String packagePath = 'com.herocc.bukkit.multispawn'
@@ -16,14 +16,14 @@ sourceCompatibility = 1.8
 
 
 repositories {
-  mavenCentral()
+  jcenter()
   maven { url 'https://hub.spigotmc.org/nexus/content/groups/public' }
-  maven { url 'https://repo.bstats.org/content/repositories/releases' }
+  maven { url 'https://repo.codemc.org/repository/maven-public' }
 }
 
 dependencies {
-  compile group: 'org.bukkit', name: 'bukkit', version: '1.12-R0.1-SNAPSHOT'
-  compile group: 'org.bstats', name: 'bstats-bukkit-lite', version: '1.1'
+  compile 'org.bukkit:bukkit:1.14-R0.1-SNAPSHOT'
+  compile 'org.bstats:bstats-bukkit-lite:1.7'
 }
 
 artifacts { // task 'build' runs generates uberjar
