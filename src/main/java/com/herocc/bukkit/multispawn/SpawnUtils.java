@@ -34,7 +34,7 @@ public class SpawnUtils {
    * @param name Name of the new spawn
    */
   public void setSpawn(Location loc, String name) {
-    String location = loc.getWorld().getName() + "," + loc.getX() + "," + (loc.getY() + 0.6) + "," + loc.getZ() + "," + loc.getYaw() + "," + loc.getPitch();
+    String location = loc.getWorld().getName() + "," + loc.getX() + "," + loc.getY() + "," + loc.getZ() + "," + loc.getYaw() + "," + loc.getPitch();
     plugin.getConfig().set("spawns." + name + ".loc", location);
     plugin.saveConfig();
   }

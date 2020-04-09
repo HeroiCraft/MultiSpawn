@@ -2,6 +2,7 @@ package com.herocc.bukkit.multispawn.commands;
 
 import com.herocc.bukkit.multispawn.SpawnUtils;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -22,8 +23,10 @@ public class SetSpawn implements CommandExecutor {
           sender.sendMessage(ChatColor.RED + spawnName + " is a reserved name, please choose something else!");
           return true;
         }
-        spawnUtils.setSpawn(p.getLocation(), spawnName);
-        p.sendMessage(ChatColor.GREEN + "Set spawn " + ChatColor.BOLD  + spawnName + ChatColor.RESET + ChatColor.GREEN + " to your current location");
+        Location loc = p.getEyeLocation();
+        spawnUtils.setSpawn(loc, spawnName);
+        String locString = String.format("[X: %f, Y: %f, Z: %f]", loc.getX(), loc.getY(), loc.getZ());
+        p.sendMessage(ChatColor.GREEN + "Set spawn " + ChatColor.BOLD  + spawnName + ChatColor.RESET + ChatColor.GREEN + " to " + locString);
         return true;
       } else {
         sender.sendMessage(ChatColor.RED + "You don't have permission to do that!");
