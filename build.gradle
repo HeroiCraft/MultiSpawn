@@ -25,6 +25,9 @@ dependencies {
   compileOnly 'org.bukkit:bukkit:1.15.2-R0.1-SNAPSHOT'
   implementation "io.papermc:paperlib:1.0.2"
   implementation 'org.bstats:bstats-bukkit-lite:1.7'
+
+  testImplementation 'junit:junit:4.13'
+  testImplementation 'com.github.seeseemelk:MockBukkit-v1.14:0.2.1-SNAPSHOT'
 }
 
 artifacts { // task 'build' runs generates uberjar
