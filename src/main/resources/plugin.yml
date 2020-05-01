@@ -1,5 +1,6 @@
 name: MultiSpawn
 version: '@Version@'
+api-version: '1.13'
 main: com.herocc.bukkit.multispawn.MultiSpawn
 description: "@Description@"
 authors: ['@Author@']

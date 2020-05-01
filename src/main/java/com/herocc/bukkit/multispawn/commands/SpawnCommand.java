@@ -44,7 +44,7 @@ public class SpawnCommand implements CommandExecutor {
     } else if (args.length == 2) { // Assuming a spawn and player are specified
       String spawn = args[0];
       @SuppressWarnings("deprecation") // For some reason getting player by name is deprecated
-              Player p = plugin.getServer().getPlayer(args[1]);
+      Player p = plugin.getServer().getPlayer(args[1]);
       if (p == null) { // If target is offline break
         sender.sendMessage(ChatColor.RED + "Player " + args[1] + " isn't online!");
         return true;

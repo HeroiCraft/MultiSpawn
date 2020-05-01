@@ -1,7 +1,11 @@
 package com.herocc.bukkit.multispawn;
 
-import com.herocc.bukkit.multispawn.commands.*;
-import com.herocc.bukkit.multispawn.events.*;
+import com.herocc.bukkit.multispawn.commands.ListSpawns;
+import com.herocc.bukkit.multispawn.commands.RemoveSpawn;
+import com.herocc.bukkit.multispawn.commands.SetSpawn;
+import com.herocc.bukkit.multispawn.commands.SpawnCommand;
+import com.herocc.bukkit.multispawn.events.PlayerDeath;
+import com.herocc.bukkit.multispawn.events.PlayerJoin;
 import org.bstats.bukkit.MetricsLite;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -13,7 +17,9 @@ import java.util.Random;
 public class MultiSpawn extends JavaPlugin {
   private static MultiSpawn instance;
   protected Random random = new Random();
-  
+
+  public MultiSpawn() { super(); }
+
   // For MockBukkit
   protected MultiSpawn(JavaPluginLoader loader, PluginDescriptionFile description, File dataFolder, File file) {
     super(loader, description, dataFolder, file);
