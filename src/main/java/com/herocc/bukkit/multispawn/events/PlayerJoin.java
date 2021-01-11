@@ -16,7 +16,7 @@ public class PlayerJoin implements Listener {
   public void onPlayerJoin(PlayerJoinEvent ev) {
     final Player p = ev.getPlayer();
     if (p.hasPermission("multispawn.noteleport") // If player is excluded
-        || !plugin.getConfig().getBoolean("teleportOnJoin")
+        || !plugin.getConfig().getBoolean("teleportOnJoin") // If disabled in config.yml
         || plugin.getSpawnUtils().getSpawns(p, false).isEmpty()) return; // If spawns are empty
   
     if (plugin.getSpawnUtils().getSpawns(p, true).size() == 1
