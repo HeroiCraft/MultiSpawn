@@ -13,6 +13,7 @@ A plugin the lets players spawn at different locations, depending on their permi
   
   * _multispawn.spawn.SPAWNNAMEHERE_ - allows player to spawn at that spawn
   * _multispawn.noteleport_ - players don't teleport when they join
+  * _multispawn.noteleportondeath_ - players don't teleport when they die
   * _multispawn.bycommand_ - allows usage of /spawn
   * _multispawn.removespawn_ - allows usage of /removespawn
   * _multispawn.others_ - allows you to teleport others to spawn
