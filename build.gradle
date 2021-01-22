@@ -28,7 +28,8 @@ dependencies {
   implementation 'org.bstats:bstats-bukkit-lite:1.7'
 
   testImplementation 'junit:junit:4.13'
-  testImplementation 'com.github.seeseemelk:MockBukkit:8bc786b8b42bf99a6ff0a37c3d35ae577e60948d'
+  //testImplementation 'com.github.seemeselk:MockBukkit:patch-1-SNAPSHOT'
+  testImplementation 'com.github.seeseemelk:MockBukkit-v1.16:0.5.0'
 }
 
 artifacts { // task 'build' runs generates uberjar

@@ -24,6 +24,6 @@ public class GenericMultiSpawnTest {
   
   @After
   public void tearDown() {
-    MockBukkit.unload();
+    MockBukkit.unmock();
   }
 }

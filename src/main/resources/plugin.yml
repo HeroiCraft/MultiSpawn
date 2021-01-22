@@ -30,7 +30,7 @@ permissions:
   multispawn.spawn:
     default: false
   multispawn.noteleport:
-    default: op
+    default: false
   multispawn.noteleportondeath:
     default: false
   multispawn.bycommand.*:

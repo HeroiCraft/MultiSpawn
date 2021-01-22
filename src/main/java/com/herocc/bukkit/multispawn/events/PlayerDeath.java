@@ -1,6 +1,7 @@
 package com.herocc.bukkit.multispawn.events;
 
 import com.herocc.bukkit.multispawn.MultiSpawn;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -20,9 +21,9 @@ public class PlayerDeath implements Listener {
     if (plugin.getSpawnUtils().getSpawns(p, true).size() == 1
       && plugin.getSpawnUtils().getSpawns(p, true).contains("default")
       && !plugin.getConfig().getBoolean("useDefaultAsFallback", true)) return;
-
-    if (!plugin.getSpawnUtils().getSpawns(p, false).isEmpty()) {
-      ev.setRespawnLocation(plugin.getSpawnUtils().getSpawnLocation(plugin.getSpawnUtils().getRandomSpawn(p)));
-    }
+    
+    String spawnName = plugin.getSpawnUtils().getSpawns(p, true).get(0);
+    Location spawnLoc = plugin.getSpawnUtils().getSpawnLocation(spawnName);
+    ev.setRespawnLocation(spawnLoc);
   }
 }
